@@ -8,29 +8,64 @@
     <groupId>io.github.expertflow</groupId>
     <artifactId>multi-tenant-sql-sdk</artifactId>
     <version>0.0.1</version>
+    <packaging>jar</packaging>
 
+    <name>multi-tenant-sql-sdk</name>
+    <url>https://github.com/expertflow/multi-tenant-sql-sdk</url>
+    <description>Multi tenant SQL SDK for Spring Boot</description>
+
+    <!-- License -->
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <!-- Developer Info -->
+    <developers>
+        <developer>
+            <name>Nadeem Abbas</name>
+            <email>nadeem.abbas@expertflow.com</email>
+            <organization>ExpertFlow</organization>
+            <organizationUrl>https://www.expertflow.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Nadeem Abbas</name>
+            <email>abbasmalik.pkm@gmail.com</email>
+        </developer>
+    </developers>
+
+    <!-- SCM -->
+    <scm>
+        <connection>scm:git:https://github.com/expertflow/multi-tenant-sql-sdk.git</connection>
+        <developerConnection>scm:git:ssh://github.com/expertflow/multi-tenant-sql-sdk.git</developerConnection>
+        <url>https://github.com/expertflow/multi-tenant-sql-sdk</url>
+    </scm>
+
+    <!-- Java Version -->
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
-    <!-- Boot dependency versions come from BOM -->
+    <!-- Use Spring Boot BOM for dependency versions -->
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.2.0</version> <!-- Must match client Spring Boot version -->
+                <version>3.2.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <!-- Library Dependencies -->
     <dependencies>
 
-        <!-- Provided because client will supply actual versions -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
@@ -44,23 +79,109 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Needed for LocalContainerEntityManagerFactoryBean and JPA infra -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
+
+    <!-- Sonatype Central Publishing -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>central</id>
+            <url>https://central.sonatype.com/staging/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>central</id>
+            <url>https://central.sonatype.com/staging/deploy/</url>
+        </repository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>central-release</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonatype.central>true</sonatype.central>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+
+            <!-- sources.jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- javadoc.jar (Java 17 compatible) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>17</source>
+                    <failOnError>false</failOnError>
+                </configuration>
+            </plugin>
+
+            <!-- GPG signing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Sonatype Central Publishing -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>
