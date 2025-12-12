@@ -12,7 +12,7 @@
 
     <name>multi-tenant-sql-sdk</name>
     <url>https://github.com/expertflow/multi-tenant-sql-sdk</url>
-    <description>Multi tenant SQL SDK for Spring Boot</description>
+    <description>Multi tenant SQL SDK for Spring Boot. For further documentation visit: https://github.com/expertflow/multi-tenant-sql-sdk/blob/main/README.md</description>
 
     <!-- License -->
     <licenses>
