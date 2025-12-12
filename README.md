@@ -228,7 +228,7 @@ Most apps use:
 maxPoolSize = 5–20 per tenant
 ```
 
-### ✔ Use UUID tenant IDs
+### ✔ Use Unique tenant IDs
 
 To avoid collisions.
 
@@ -245,6 +245,10 @@ Only required if you manually set context.
 3. Commit with meaningful messages
 4. Submit a Pull Request
 
+---
+# 🤝 13. Sample Code
+Checkout the following working example
+https://github.com/expertflow/SampleMttSqlApp
 ---
 
 # 📬 14. Support
