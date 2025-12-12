@@ -7,7 +7,7 @@
 
     <groupId>io.github.expertflow</groupId>
     <artifactId>multi-tenant-sql-sdk</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>multi-tenant-sql-sdk</name>

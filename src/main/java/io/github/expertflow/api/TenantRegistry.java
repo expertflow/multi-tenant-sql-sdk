@@ -8,4 +8,5 @@ import javax.sql.DataSource;
  */
 public interface TenantRegistry {
     void addDataSource(String tenantId, DataSource dataSource);
+    void removeDataSource(String tenantId);
 }

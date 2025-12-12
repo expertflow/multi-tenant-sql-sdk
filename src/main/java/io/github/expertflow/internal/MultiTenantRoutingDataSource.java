@@ -41,4 +41,10 @@ public class MultiTenantRoutingDataSource extends AbstractRoutingDataSource {
         }
         return t;
     }
+
+    public void removeTenant(String tenantId) {
+        targetMap.remove(tenantId);
+        super.setTargetDataSources(targetMap);
+        super.afterPropertiesSet();
+    }
 }

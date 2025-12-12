@@ -27,4 +27,9 @@ public class TenantRegistryImpl implements TenantRegistry {
     public void addDataSource(String tenantId, DataSource dataSource) {
         routingDataSource.addTenant(tenantId, dataSource);
     }
+
+    @Override
+    public void removeDataSource(String tenantId) {
+        routingDataSource.removeTenant(tenantId);
+    }
 }
